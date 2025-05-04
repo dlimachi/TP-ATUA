@@ -1,0 +1,56 @@
+N Siniestro;Número de Reserva;Patente;Día del Siniestro;Marca / Modelo;;;Tercero Involucrado;Nombre Tercero;Lugar;Tipo de Denuncia;Detalle;Fecha de Declaración;N° Siniestro Seguro;Valor del Auto;Monto de Retención;Fecha de Cobro Garantía;Garantía cobrada;Gasto del Incidente;Reintegro Seguro;Taller de Reparación;Teléfono Taller Reparación;Monto Franquicia;Fecha de Pago;Estatus;Observaciones
+1;1429;;19/1/24;Fiat Cronos;;;;No;CABA;Robo;2 llantas;14/2/24;;;180.000,00;16/1/24;350.000,00;901.812,02;0;;;;;Cerrado;
+2;1440;;6/2/24;Fiat Cronos;;;No;;Mendoza;Choque;Parabrisas;8/2/24;;;180.000,00;29/1/24;;;;;;;;Denunciado;Se volvió a enviar un endoso, para este caso, se avisó por mail, contactaron al dueño del auto?
+3;1437;;25/1/24;Chev Onix;;;;;Bariloche;Choque;Colisión con otro auto;26/1/24;4,20231E+11;9.558.000,00;180.000,00;29/1/24;476.740,00;;3.656.520,00;M &W Servicios;5,493E+12;;;Cerrado;
+4;1407;;30/1/24;Chev Onix;;;;No;Bariloche;Choque;Parachoque;2/2/24;;;180.000,00;2/2/24;180.000,00;180.000,00;0;Nelson G. González;;;;Cerrado;
+5;1448;;21/1/24;VW Passat;;;;;CABA;Choque;Parachoque Delantero;19/2/24;;;250.000,00;18/1/24;;;;;;;;Cerrado;
+6;1620;;13/3/24;Citroen C3;;;;No;Tucumán;Choque;Parachoque Delantero;13/3/24;;;300.000,00;19/3/24;200.000,00;111.572,00;0;Alta Gama;;;;Cerrado;
+7;1706;;1/4/24;VW Passat;;;;No;CABA;Choque;Parachoque Delantero y guardapolvo;;;;500.000,00;;500.000,00;;;;;;;Cerrado;Nos quedamos con la garantía de 400 USD, lo reparó el cliente que compró el auto con el caso del robo
+8;2135;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+9;2235;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+10;2279;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+11;2403;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+12;2404;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+13;2429;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+14;2490;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+15;2473;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+16;2679;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+17;1111;;26/9/24;Renault Sandero;;;No;;Caba;Accidente;Cerradura dañada;15/10/24;;;;;;;;;;;;Denunciado;EN ESPERA DE REINTEGRO
+18;2809;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+19;2681;;12/10/24;Peugeot 208;;;No;;Ushuaia;Vidrios;Vidrios laterales izquierdos;31/10/24;;;;;;;;;;;;Denunciado;EN ESPERA DE REINTEGRO
+20;2875;;13/10/24;Volkswagen Passat;;;No;;Caba;Choque;Guardabarro trasero izquierdo;6/11/24;4,20241E+11;;;;;;;;;;;Denunciado;no se llevó a cotizar para reparar, Se devuelve la garantía, ella queda que paga en dólares lo que salga, no se le pasó cotización
+21;2842;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+22;1111;;19/10/24;Renault Sandero;;;No;;Caba;Vidrios;Parabrisas;21/10/24;;;;;;;;;;;;Denunciado;EN ESPERA DE REINTEGRO
+23;3317;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+24;3185;;18/11/24;Renault Logan;;;No;;Caba;Vidrios;Parabrisas;28/1/24;4,20241E+11;;;;;;;;;;;Cerrado;Cambiado el parabrisas
+25;3733;;15/12/24;Renault Kangoo;;;No;No;Caba;Choque;Lado izquierdo paragolpe trasero, puerta y paragolpe.;6/1/25;4,20241E+11;29.300.000,00;586.000,00;4/12/24;500.000,00;;;CLAMA SA;4505-8600;586.000,00;;Pendiente Reparación;N° siniestro entregado al anfitrión - en espera de reparación para pago de Franquicia, cobrada a Ruben Romero ID 3160, faltaron 86,000 y la com atua, sin saldo la tarjeta - anulada  // LLEGARON LOS REPUESTOS, EN ESPERA DE LA PUERTA
+26;3345;;3/12/24;Toyota Corolla;;;No;;Caba;Vidrios;Parabrisas;9/1/25;;;;;;;;;;;;Denunciado;En espera de orden para recambio SE CONSULTA POR MAIL
+27;3648;;8/12/24;Citroen C-Elysee;;;No;;Caba;Choque;Paragolpe y guardapolvo delantero derecho. Del lado izquierdo, ambas puertas, guardapolvo trasero y delantero, paragolpe trasero;13/1/25;4,20241E+11;;258.400,00;13/1/25;260.000,00;;;;;;;Cerrado;Se cobra franquicia a Joel Montes. Tenia turno para reparar, ocurrió otro accidente y le dieron perdida total, lo pagó la caja
+28;3578;;18/12/24;Peugeot 208;;;Si +;;Caba;Choque;Parrila delantera, internamente una de las bases;3/2/25;4,20241E+11;;;;;452.000,00;;GM BODYWORKS;11 2255-7645;452.000,00;10/2/25;Reclamo Tercero;No se cobra franquicia al cliente, la paga Atua, en espera de recuperarla ante el seguro del tercero
+29;4001;;23/12/24;Renault Logan;;;No;No;Caba;Choque;Capó, Logo, paragolpe, parrilla de abajo del paragolpe, bases de las luces;26/12/25;4,20241E+11;;270.000,00;de la garantía del conductor;;;;Cionci y Haag - info@cionciyhaag.com.ar;4911-9670;270.000,00;15/4/25;Cerrado;Se descontó la franquicia de la garantía de Diego Munter
+30;3891;;23/12/25;Ford Ecosport;;;Si -;;Caba;Choque;Rozadura en la parte delantera derecha (Paragolpe y guardapolvo) y espejo derecho con roce;27/1/25;4,20241E+11;;;;;;;;;482.000,00;21/2/25;Cerrado;Se cobra franquicia al cliente
+31;3872;;28/12/25;Renaul Logan;;;No;No;Santa fe;Acarreo;SE REVIENTA UNA LLANTA (POSIBLEMENTE CAE EN UN POZO), CAMBIAN LA RUEDA DE AUXILIO PARA PODER SEGUIR HASTA UNA ESTACIÓN DE SERVICIO CERCANA, PERO SIN RUEDA DE AUXILIO;2/1/25;;;;;;;;;;;;Denunciado;EN ESPERA DE REINTEGRO
+32;4379;;5/1/25;Renault Logan;;;No;No;MDQ;Vidrios;PARABRISAS DELANTERO;7/1/25;4,20241E+11;;;;;;;;;;;Denunciado;EN ESPERA DE REINTEGRO
+33;4243;;5/1/25;Peugeot 308;;;No;No;Caba;Choque;RETROVISOR IZQUIERDO RAYADO, ;;;;;;;;;;;;;;
+PUERTA TRASERA IZQUIERDA Y ARRIBA DE LA PUERTA RAYADO;;;;;;;;;;;;;;;;;;;;;;;;;
+RETROVISOR DERECHO PARTIDO;;;;;;;;;;;;;;;;;;;;;;;;;
+;7/1/25;;;400.000;;;400.000,00;0;0;;1143509700;390.000,00;28/2/25;Cerrado;Se cobra Franquicia al cliente;;;;;;;;;;
+34;3680;;;Pendiente de denuncia;;;;;;;;;;;;;;;;;;;;Cerrado;
+35;4635;;22/1/25;Fiat Siena;;;Si -;;Caba;Choque;CAPOT Y PARAGOLPE DELANTERO – REVISAR PARRI;28/1/25;4,20241E+11;;400.000,00;23/1/25;800.000,00;1.200.000,00;;Taller Mosquera;11-23948978;226.000,00;31/3/25;Cerrado;
+36;3322;;21/1/25;Fiat Cronos;;;No;No;Caba;Choque;Rayón en puerta trasera derecha y guardabarros trasero derecho - Golpe en paragolpe delantero lado derecho parte baja;27/1/25;4,20241E+11;;400.000,00;27/1/25;397.440,00;;;Tluaner;4502-4976 - info@tluaner.com;368.000,00;;Pendiente Reparación;
+37;3593;;31/1/25;Chevrolet Onix;;;No;No;Bariloche;Choque;Guardapolvo delantero derecho y puerta delantera derecha;7/2/25;;;400.000,00;1/2/25;400.000,00;762.022,32;0;LUIS ABRIL E HIJOS;2944 36-5322;335.000,00;20/3/25;Cerrado;
+38;4977;;19/2/25;Peugeot 208;;;No;No;Caba;Vidrios;Parabrisas sentido;25/2/25;4,20241E+11;0;0;-;0;0;0;GRANT SERVICES SAS;011 47863000;0;5/3/25;OR Entregada a Cliente;
+39;4794;;28/2/25;Renault Captur;;;No;No;Caba;Choque;Tapa de Baúl y moldura cromada del paragolpes y paragolpes;5/3/25;4,20241E+11;19.500.000,00;390.000,00;27/2/25;435.000,00;;;;;390.000,00;;Pendiente Reparación;
+40;5241;;27/2/25;Peugeot 408;;;No;No;Mendoza;Choque;Paragolpe trasero, puerta trasera izquierda, parte inferior del zócalo del mismo lado, guardabarro trasero izquierdo. Tercera luz de paragolpe y un sensor de estacionamiento;5/3/25;4,20241E+11;12.180.000,00;500.000,00;5/3/25;954.000,00;954.000,00;;Imola Pintura De Autos;2617 22-2948;253.600,00;25/4/25;Cerrado;Cliente paga seguro básico y cubre el 100% del presupuesto. Se cobra 500,000 de garantia el 05/03/25 y 454,000 por transferencia el día 05/03/25 - EN RECLAMO POR PARTE DEL DUEÑO DEL AUTO, EL AUTO QUEDÓ MAL REPARADO
+41;5452;;28/3/25;Jepp Renegade;;;Si +;;Caba;Choque;RAYON EN PARAGOLPE TRASERO LADO DERECHO Y GUARDABARRO TRASERO DERECHO;3/4/25;en esp del seguro;27.700.000,00;554.000,00;;;;;;;;;Denunciado;
+42;5443;;10/4/25;Renault Kangoo;;;No;No;Tucumán;Choque;Puerta trasera izquierda, luneta y guardabarro trasero izquierdo;15/4/25;en esp del seguro;24.100.000,00;482.000,00;17/4/25;912.945,00;912.945,00;;;;;;Denunciado;
+43;;;;;;;;;;;;;;;;;;;;;;;;;
+44;;;;;;;;;;;;;;;;;;;;;;;;;
+45;;;;;;;;;;;;;;;;;;;;;;;;;
+46;;;;;;;;;;;;;;;;;;;;;;;;;
+47;;;;;;;;;;;;;;;;;;;;;;;;;
+48;;;;;;;;;;;;;;;;;;;;;;;;;
+49;;;;;;;;;;;;;;;;;;;;;;;;;
+50;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
