@@ -3,6 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import ticker
+import re
 
 
 df = pd.read_csv('dataset/Reservas.csv', sep=';')
@@ -21,22 +22,20 @@ df_filtered = df_filtered[df_filtered['Fecha de creacion'] >= fecha_limite]
 #Normalización de Ubicación
 ciudades_a_provincias = {
     'San Miguel de Tucumán': 'Tucumán',
-    'Córdoba': 'Córdoba',
     'Rosario': 'Santa Fe',
-    'Mendoza': 'Mendoza',
     'Capital Federal': 'Buenos Aires',
     'CABA': 'Buenos Aires',
-    'Neuquén': 'Neuquén',
-    'Salta': 'Salta',
     'Campana' : 'Buenos Aires',
     'Córdoba Capital' : 'Córdoba',
     'Godoy Cruz': 'Mendoza',
     'Villa Urquiza CABA': 'Buenos Aires',
-    'Matienzo 1431': 'Mendoza',
     'Rio Negro' : 'Río Negro',
     'San Rafael': 'Mendoza',
     'Capital' : 'Buenos Aires',
-    'Monteros': 'Tucumán'
+    'Monteros': 'Tucumán',
+    'Comodoro Rivadavia' : 'Chubut',
+    'caballito': 'Buenos Aires',
+    'aeropuerto': 'Río negro'
 }
 provincias_validas = {
     'Buenos Aires', 'CABA', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes',
@@ -48,35 +47,27 @@ provincias_validas = {
 def extraer_provincia(ubicacion):
     if pd.isna(ubicacion):
         return np.nan
-    partes = ubicacion.split(',')
+
+    partes = [p.strip() for p in ubicacion.split(',')]
+
     if len(partes) >= 2:
-        posible_prov = partes[-2].strip()
+        posible_prov = partes[-2]
     else:
-        posible_prov = ubicacion.strip()
+        posible_prov = partes[0]
 
-    posible_prov = posible_prov.replace('Province', '').strip().lower()
+    posible_prov = re.sub(r'\bprovince\b', '', posible_prov, flags=re.IGNORECASE).strip().lower()
+    posible_prov_title = posible_prov.title()
 
-    reemplazos = {
-        'capital federal': 'buenos aires',
-        'ciudad autónoma de buenos aires': 'buenos aires',
-        'caba': 'buenos aires',
-        'cordoba capital': 'córdoba',
-        'san miguel de tucumán': 'tucumán',
-        'caballito': 'buenos aires',
-        'córdoba capital': 'córdoba',
-        'aeropuerto': 'rio negro'
-    }
+    if posible_prov_title in ciudades_a_provincias:
+        return ciudades_a_provincias[posible_prov_title]
+    if posible_prov_title in provincias_validas:
+        return posible_prov_title
 
-    posible_prov = reemplazos.get(posible_prov, posible_prov)
+    for prov in provincias_validas:
+        if prov.lower() in ubicacion.lower():
+            return prov
 
-    # Buscar en el diccionario ciudades_a_provincias
-    provincia = ciudades_a_provincias.get(posible_prov.title(), posible_prov.title())
-
-    # Verificar si es una provincia válida
-    if provincia in provincias_validas:
-        return provincia
-    else:
-        return np.nan
+    return np.nan
     
 df_filtered['Provincia'] = df_filtered['Ubicacion'].apply(extraer_provincia)
 
@@ -127,23 +118,23 @@ def normalizar_marca(modelo):
         if marca.lower() in modelo_lower:
             return marca
     
-    if any(p in modelo_lower for p in ['208', '207', '308', '301', '2008', '408']):
+    if any(p in modelo_lower for p in ['208', '207', '308', '301', '2008', '408', 'partner']):
         return 'Peugeot'
-    if any(p in modelo_lower for p in ['gol', 'up', 'vento', 'fox', 'voyage', 'trend', 'polo', 'passat']):
+    if any(p in modelo_lower for p in ['gol', 'up', 'vento', 'fox', 'voyage', 'trend', 'polo', 'passat', 'suran', 'nivus', 'amarok']):
         return 'Volkswagen'
-    if any(p in modelo_lower for p in ['prisma', 'onix', 'cruze', 'corsa', 'spin', 'sonic', 'agile']):
+    if any(p in modelo_lower for p in ['prisma', 'onix', 'cruze', 'corsa', 'spin', 'sonic', 'agile', 'tracker']):
         return 'Chevrolet'
-    if any(p in modelo_lower for p in ['uno', 'mobi', 'siena', 'palio', 'cronos', 'argo', 'toro']):
+    if any(p in modelo_lower for p in ['uno', 'mobi', 'siena', 'palio', 'cronos', 'argo', 'toro', 'pulse']):
         return 'Fiat'
     if any(p in modelo_lower for p in ['stepway', 'logan', 'sandero', 'kwid', 'clio', 'duster', 'captur']):
         return 'Renault'
     if any(p in modelo_lower for p in ['fiesta', 'focus', 'ka', 'ranger', 'eco']):
         return 'Ford'
-    if any(p in modelo_lower for p in ['corolla', 'etios', 'hilux', 'yaris', 'sw4']):
+    if any(p in modelo_lower for p in ['corolla', 'etios', 'hilux', 'yaris', 'sw4', 'hiace']):
         return 'Toyota'
     if any(p in modelo_lower for p in ['versa', 'march', 'sentra', 'kicks', 'frontier']):
         return 'Nissan'
-    if any(p in modelo_lower for p in ['glk', 'sprinter', 'class']):
+    if any(p in modelo_lower for p in ['glk', 'sprinter', 'class', 'vito']):
         return 'Mercedes'
     if any(p in modelo_lower for p in ['c3']):
         return 'Citroen'
@@ -153,10 +144,22 @@ def normalizar_marca(modelo):
         return 'Hyundai'
     if any(p in modelo_lower for p in ['qq']):
         return 'Chery'
+    if any(p in modelo_lower for p in ['cerato']):
+        return 'Kia'
+    if any(p in modelo_lower for p in ['quattro']):
+        return 'Audi'
+    if any(p in modelo_lower for p in ['fit']):
+        return 'Honda'
     
 
-
 df_filtered['Marca'] = df_filtered['Modelo'].apply(normalizar_marca)
+
+filas_vacias = df_filtered[df_filtered['Provincia'].isnull()]
+
+resultado = filas_vacias[['Ubicacion', 'Provincia']]
+
+# Imprimir las filas resultantes
+print(resultado)
 
 df_filtered.to_csv('dataset/Reservas_limpio.csv', sep=';', index=False)
 
