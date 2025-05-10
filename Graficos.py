@@ -47,6 +47,20 @@ plt.ylabel("Cantidad de reservas")
 plt.tight_layout()
 plt.show()
 
+# --- GRAFICO DE RESERVAS POR MARCAS ---
+#reservados = df_filtered[df_filtered['Estado'].str.upper() == 'COMPLETADA']
+#conteo_marcas = reservados['Marca'].value_counts()
+conteo_marcas = df_filtered['Marca'].value_counts()
+conteo_marcas.plot(kind='bar', figsize=(10, 6), color='skyblue')
+
+plt.title('Cantidad total de autos por marca')
+plt.xlabel('Marca')
+plt.ylabel('Cantidad de autos')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
 # --- GRAFICO DE RESERVAS POR ORIGEN ---
 df_filtered['Origen'] = df_filtered['Origen'].fillna('Desconocido')
 df_filtered['Origen'] = df_filtered['Origen'].replace('', 'Desconocido')

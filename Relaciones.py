@@ -59,10 +59,10 @@ plt.figure(figsize=(10, 6))
 sns.boxplot(
     data=df_modelos,
     x='Modelo',
-    y='Precio final'
+    y='Precio de la publicacion'
 )
 plt.xticks(rotation=45)
-plt.title('Distribución del Precio final por Modelo de auto (Top 10)')
+plt.title('Distribución del Precio de la publicacion por Modelo de auto (Top 10)')
 plt.ylabel('Precio final (ARS)')
 plt.xlabel('Modelo de auto')
 plt.tight_layout()
@@ -81,4 +81,32 @@ plt.title('Precio de la reserva vs. Días de alquiler')
 plt.xlabel('Días de Alquiler')
 plt.ylabel('Precio final')
 plt.tight_layout()
+plt.show()
+
+
+# --- GRAFICO DE RESERVAS POR MODELOS Y MARCAS---
+top_marcas = df_filtered['Marca'].value_counts().head(6).index
+df_top = df_filtered[df_filtered['Marca'].isin(top_marcas)].copy()
+df_top['Modelo_simple'] = df_top['Modelo'].astype(str).str.split().str[0]
+
+# Calcular el límite máximo para el eje Y para que sea equitativo
+max_y = df_top['Modelo_simple'].value_counts().max()
+y_lim = ((max_y // 50) + 1) * 50 
+
+fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(18, 8))
+axes = axes.flatten()
+
+for i, marca in enumerate(top_marcas):
+    ax = axes[i]
+    modelos = df_top[df_top['Marca'] == marca]['Modelo_simple'].value_counts().head(5)
+    modelos.plot(kind='bar', ax=ax, color='steelblue')
+    ax.set_title(f'{marca} - Top modelos')
+    ax.set_xlabel('Modelo')
+    ax.set_ylabel('Cantidad')
+    ax.tick_params(axis='x', rotation=45)
+    ax.set_ylim(0, y_lim)
+    ax.set_yticks(range(0, y_lim + 1, 50))
+
+plt.tight_layout()
+plt.suptitle('Top 5 modelos por cada una de las 6 marcas más reservadas', fontsize=16, y=1.02)
 plt.show()

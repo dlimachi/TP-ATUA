@@ -18,6 +18,10 @@ df_filtered['Fecha de creacion'] = pd.to_datetime(df_filtered['Fecha de creacion
 fecha_limite = pd.to_datetime('2024-12-01')
 df_filtered = df_filtered[df_filtered['Fecha de creacion'] >= fecha_limite]
 
+#Podemos notar que al tener nuevo precio, podemos utilizar solo los datos donde ya esta actualizado
+df_filtered = df_filtered[df_filtered['Nuevo Precio'] == df_filtered['Precio de la publicacion']]
+df_filtered = df_filtered.drop(columns=['Nuevo Precio'])
+
 
 #Normalización de Ubicación
 ciudades_a_provincias = {
@@ -73,12 +77,13 @@ df_filtered['Provincia'] = df_filtered['Ubicacion'].apply(extraer_provincia)
 
 #Normalización de Precios
 columnas_monetarias = [
-    'Nuevo Precio', 'Precio de la publicacion', 'Precio de la reserva',
+    'Precio de la publicacion', 'Precio de la reserva',
     'Gastos administrativo', 'Seguro base', 'Seguro Contra Terceros',
     'Seguro Premium', 'Precio final', 'Pago seña',
     'Pendiente Por Cobrar', 'Monto de la garantia'
 ]
 
+# Reemplazar valores monetarios '0' por NaN y procesar las columnas
 for col in columnas_monetarias:
     df_filtered[col] = (
         df_filtered[col]
@@ -87,19 +92,13 @@ for col in columnas_monetarias:
         .str.replace('.', '', regex=False)
         .str.replace(',', '', regex=False)
         .str.strip()
-        .replace('', '0')  # en caso de que haya campos vacíos
+        .replace('',  0) 
         .astype(float)
-        .astype(int)
+        .astype(int)  
     )
 
+## Normalización de origen
 df_filtered = df_filtered[df_filtered['Origen'].str.lower() != 'rentlyapp']
-
-
-
-df_filtered = df_filtered[
-    (df_filtered['Precio final'].notna()) & 
-    (df_filtered['Precio final'] > 0)
-]
 
 
 ## Normalización de modelos
@@ -154,12 +153,16 @@ def normalizar_marca(modelo):
 
 df_filtered['Marca'] = df_filtered['Modelo'].apply(normalizar_marca)
 
-filas_vacias = df_filtered[df_filtered['Provincia'].isnull()]
-
-resultado = filas_vacias[['Ubicacion', 'Provincia']]
-
-# Imprimir las filas resultantes
-print(resultado)
-
 df_filtered.to_csv('dataset/Reservas_limpio.csv', sep=';', index=False)
 
+
+## Verificar filas varias
+#filas_vacias = df_filtered[df_filtered['Provincia'].isnull()]
+#resultado = filas_vacias[['Ubicacion', 'Provincia']]
+#print(resultado)
+
+print(df_filtered.isnull().sum())
+
+count_nulls_including_zeros = df_filtered[columnas_monetarias].replace(0, np.nan).isnull().sum()
+
+print(count_nulls_including_zeros)
