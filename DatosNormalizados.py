@@ -17,18 +17,66 @@ df_filtered = df_filtered[df_filtered['Fecha de creacion'] >= fecha_limite]
 
 
 #Normalización de Ubicación
-df_filtered['Provincia'] = df_filtered['Ubicacion'].str.split(',').str[-2].str.strip()
-df_filtered['Provincia'] = df_filtered['Provincia'].str.replace('Province', '', regex=False).str.strip()
-df_filtered['Provincia'] = df_filtered['Provincia'].str.lower().str.strip()
-df_filtered['Provincia'] = df_filtered['Provincia'].replace({
-   'capital federal': 'buenos aires',
-    'ciudad autónoma de buenos aires': 'buenos aires',
-    'caba': 'buenos aires',
-    'caballito' : 'buenos aires',
-    'córdoba capital': 'córdoba',
-    'aeropuerto' : 'rio negro'
-})
-df_filtered['Provincia'] = df_filtered['Provincia'].str.title()
+ciudades_a_provincias = {
+    'San Miguel de Tucumán': 'Tucumán',
+    'Córdoba': 'Córdoba',
+    'Rosario': 'Santa Fe',
+    'Mendoza': 'Mendoza',
+    'Capital Federal': 'Buenos Aires',
+    'CABA': 'Buenos Aires',
+    'Neuquén': 'Neuquén',
+    'Salta': 'Salta',
+    'Campana' : 'Buenos Aires',
+    'Córdoba Capital' : 'Córdoba',
+    'Godoy Cruz': 'Mendoza',
+    'Villa Urquiza CABA': 'Buenos Aires',
+    'Matienzo 1431': 'Mendoza',
+    'Rio Negro' : 'Río Negro',
+    'San Rafael': 'Mendoza',
+    'Capital' : 'Buenos Aires',
+    'Monteros': 'Tucumán'
+}
+provincias_validas = {
+    'Buenos Aires', 'CABA', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes',
+    'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones',
+    'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz',
+    'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
+}
+
+def extraer_provincia(ubicacion):
+    if pd.isna(ubicacion):
+        return np.nan
+    partes = ubicacion.split(',')
+    if len(partes) >= 2:
+        posible_prov = partes[-2].strip()
+    else:
+        posible_prov = ubicacion.strip()
+
+    posible_prov = posible_prov.replace('Province', '').strip().lower()
+
+    reemplazos = {
+        'capital federal': 'buenos aires',
+        'ciudad autónoma de buenos aires': 'buenos aires',
+        'caba': 'buenos aires',
+        'cordoba capital': 'córdoba',
+        'san miguel de tucumán': 'tucumán',
+        'caballito': 'buenos aires',
+        'córdoba capital': 'córdoba',
+        'aeropuerto': 'rio negro'
+    }
+
+    posible_prov = reemplazos.get(posible_prov, posible_prov)
+
+    # Buscar en el diccionario ciudades_a_provincias
+    provincia = ciudades_a_provincias.get(posible_prov.title(), posible_prov.title())
+
+    # Verificar si es una provincia válida
+    if provincia in provincias_validas:
+        return provincia
+    else:
+        return np.nan
+    
+df_filtered['Provincia'] = df_filtered['Ubicacion'].apply(extraer_provincia)
 
 
 #Normalización de Precios
