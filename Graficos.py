@@ -7,6 +7,9 @@ import math
 
 df_filtered = pd.read_csv('dataset/Reservas_limpio.csv', sep=';')
 
+# No tener en cuenta los datos de la provincia en nan
+df_filtered = df_filtered[~df_filtered['Provincia'].isna()]
+
 # --- HISTOGRAMAS DE VARIABLES NUMÉRICAS ---
 numeric_columns = df_filtered.select_dtypes(include='number').columns
 

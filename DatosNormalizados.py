@@ -8,7 +8,9 @@ from matplotlib import ticker
 df = pd.read_csv('dataset/Reservas.csv', sep=';')
 
 # Eliminamos columnas no necesarias
-df_filtered = df.drop(columns=['Email', 'Dni', 'Telefono', 'uuid', 'Cliente', 'Proveedor de carro', 'Patente', 'Anifitrion', 'Celular', 'Iva', 'Observaciones', 'Pago Anfitrion', 'Condicion', 'id'])
+df_filtered = df.drop(columns=['Email', 'Dni', 'Telefono', 'uuid', 'Cliente', 'Proveedor de carro', 
+                               'Patente', 'Anifitrion', 'Celular', 'Iva', 'Observaciones', 'Pago Anfitrion', 
+                               'Condicion', 'id', 'Entrega Aeropuerto', 'Devolucion Aeropuerto'])
 
 # Normalización de fechas
 df_filtered['Fecha de creacion'] = pd.to_datetime(df_filtered['Fecha de creacion'], errors='coerce')
@@ -78,7 +80,6 @@ def extraer_provincia(ubicacion):
     
 df_filtered['Provincia'] = df_filtered['Ubicacion'].apply(extraer_provincia)
 
-
 #Normalización de Precios
 columnas_monetarias = [
     'Nuevo Precio', 'Precio de la publicacion', 'Precio de la reserva',
@@ -97,14 +98,65 @@ for col in columnas_monetarias:
         .str.strip()
         .replace('', '0')  # en caso de que haya campos vacíos
         .astype(float)
+        .astype(int)
     )
 
+df_filtered = df_filtered[df_filtered['Origen'].str.lower() != 'rentlyapp']
 
-## REVISAR QUE TODOS LOS PRECIOS NINGUNO TENGA 0 O NULL? O SOLO PRECIO FINAL?
+
+
 df_filtered = df_filtered[
     (df_filtered['Precio final'].notna()) & 
     (df_filtered['Precio final'] > 0)
 ]
+
+
+## Normalización de modelos
+marcas = [
+    'Peugeot', 'Volkswagen', 'Chevrolet', 'Fiat', 'Renault', 'Ford', 'Toyota', 'Nissan',
+    'Honda', 'Citroen', 'Hyundai', 'Kia', 'Mercedes', 'BMW', 'Audi', 'Jeep', 'Chery'
+]
+
+def normalizar_marca(modelo):
+    if pd.isna(modelo):
+        return 'Otro'
+    
+    modelo_lower = modelo.lower()
+    
+    for marca in marcas:
+        if marca.lower() in modelo_lower:
+            return marca
+    
+    if any(p in modelo_lower for p in ['208', '207', '308', '301', '2008', '408']):
+        return 'Peugeot'
+    if any(p in modelo_lower for p in ['gol', 'up', 'vento', 'fox', 'voyage', 'trend', 'polo', 'passat']):
+        return 'Volkswagen'
+    if any(p in modelo_lower for p in ['prisma', 'onix', 'cruze', 'corsa', 'spin', 'sonic', 'agile']):
+        return 'Chevrolet'
+    if any(p in modelo_lower for p in ['uno', 'mobi', 'siena', 'palio', 'cronos', 'argo', 'toro']):
+        return 'Fiat'
+    if any(p in modelo_lower for p in ['stepway', 'logan', 'sandero', 'kwid', 'clio', 'duster', 'captur']):
+        return 'Renault'
+    if any(p in modelo_lower for p in ['fiesta', 'focus', 'ka', 'ranger', 'eco']):
+        return 'Ford'
+    if any(p in modelo_lower for p in ['corolla', 'etios', 'hilux', 'yaris', 'sw4']):
+        return 'Toyota'
+    if any(p in modelo_lower for p in ['versa', 'march', 'sentra', 'kicks', 'frontier']):
+        return 'Nissan'
+    if any(p in modelo_lower for p in ['glk', 'sprinter', 'class']):
+        return 'Mercedes'
+    if any(p in modelo_lower for p in ['c3']):
+        return 'Citroen'
+    if any(p in modelo_lower for p in ['renegade']):
+        return 'Jeep'
+    if any(p in modelo_lower for p in ['tucson', 'creta']):
+        return 'Hyundai'
+    if any(p in modelo_lower for p in ['qq']):
+        return 'Chery'
+    
+
+
+df_filtered['Marca'] = df_filtered['Modelo'].apply(normalizar_marca)
 
 df_filtered.to_csv('dataset/Reservas_limpio.csv', sep=';', index=False)
 
