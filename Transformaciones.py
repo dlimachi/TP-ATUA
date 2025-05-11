@@ -20,12 +20,9 @@ df_filtered['Rango de precio'] = pd.Categorical(
     ordered=True
 )
 
-
-# Crear una copia de Check-in para trabajar sin alterar la original
 checkin_parsed = pd.to_datetime(df_filtered['Check-in'], errors='coerce', dayfirst=True)
 creacion_parsed = pd.to_datetime(df_filtered['Fecha de creacion'], errors='coerce')
 
-# Calcular la diferencia en días
 df_filtered['Antiguedad dias'] = (checkin_parsed - creacion_parsed).dt.days
 
 # Clasificar en categorías
@@ -50,5 +47,10 @@ conteo = df_filtered['Rango de precio'].value_counts().reset_index()
 conteo.columns = ['Tipo de rango de precio', 'Cantidad']
 print(conteo)
 
+print("Pago de garantía:")
+print(df_filtered['Pago de garantia'].value_counts(dropna=False))
 
-df_filtered.to_csv('dataset/Reservas_transofrmado.csv', sep=';', index=False)
+print("\nDevolución Garantia:")
+print(df_filtered['Devolución Garantia'].value_counts(dropna=False))
+
+df_filtered.to_csv('dataset/Reservas_transformado.csv', sep=';', index=False)

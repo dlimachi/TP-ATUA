@@ -11,7 +11,7 @@ df = pd.read_csv('dataset/Reservas.csv', sep=';')
 # Eliminamos columnas no necesarias
 df_filtered = df.drop(columns=['Email', 'Dni', 'Telefono', 'uuid', 'Cliente', 'Proveedor de carro', 
                                'Patente', 'Anifitrion', 'Celular', 'Iva', 'Observaciones', 'Pago Anfitrion', 
-                               'Condicion', 'id', 'Entrega Aeropuerto', 'Devolucion Aeropuerto'])
+                               'Condicion', 'Entrega Aeropuerto', 'Devolucion Aeropuerto'])
 
 # Normalización de fechas
 df_filtered['Fecha de creacion'] = pd.to_datetime(df_filtered['Fecha de creacion'], errors='coerce')
