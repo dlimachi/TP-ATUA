@@ -50,7 +50,45 @@ print(conteo)
 print("Pago de garantía:")
 print(df_filtered['Pago de garantia'].value_counts(dropna=False))
 
-print("\nDevolución Garantia:")
-print(df_filtered['Devolución Garantia'].value_counts(dropna=False))
+# ----------- Temporada (Alta o Baja) -----------
+
+df_filtered['Check-in'] = pd.to_datetime(df_filtered['Check-in'], errors='coerce', format='%d/%m/%y %H:%M')
+df_filtered['Fecha de creacion'] = pd.to_datetime(df_filtered['Fecha de creacion'], format='%Y-%m-%d %H:%M:%S.%f', errors='coerce')
+
+def definir_temporada(fecha):
+    if pd.isna(fecha):
+        return 'Desconocida'
+    mes = fecha.month
+    if mes in [12, 1, 2, 7]:
+        return 'Alta'
+    return 'Baja'
+
+df_filtered['Temporada'] = df_filtered['Check-in'].apply(definir_temporada)
+
+# ----------- Franja horaria de demanda por Check-in -----------
+def franja_horaria(fecha):
+    if pd.isna(fecha):
+        return 'Desconocida'
+    hora = fecha.hour
+    if 6 <= hora < 12:
+        return 'Mañana'
+    elif 12 <= hora < 18:
+        return 'Tarde'
+    elif 18 <= hora < 24:
+        return 'Noche'
+    else:
+        return 'Madrugada'
+
+df_filtered['Franja Check-in'] = df_filtered['Check-in'].apply(franja_horaria)
+
+# ----------- Franja horaria de creación de reserva (opcional) -----------
+df_filtered['Franja Creación'] = df_filtered['Fecha de creacion'].apply(franja_horaria)
+
+
+
+# Calcular duración en días (para el modelo SVM)
+df_filtered['Check-out'] = pd.to_datetime(df_filtered['Check-in'], errors='coerce', format='%d/%m/%y %H:%M')
+df_filtered['Duracion'] = (df_filtered['Check-out'] - df_filtered['Check-in']).dt.days
+
 
 df_filtered.to_csv('dataset/Reservas_transformado.csv', sep=';', index=False)
