@@ -6,9 +6,9 @@ df_filtered = pd.read_csv('dataset/Reservas_limpio.csv', sep=';')
 def clasificar_precio_dia(precio):
     if pd.isna(precio):
         return 'Desconocido'
-    elif precio < 35000:
+    elif precio < 45000:
         return 'Bajo'
-    elif precio <= 55000:
+    elif precio <= 60000:
         return 'Medio'
     else:
         return 'Alto'
@@ -52,7 +52,8 @@ print(df_filtered['Pago de garantia'].value_counts(dropna=False))
 
 # ----------- Temporada (Alta o Baja) -----------
 
-df_filtered['Check-in'] = pd.to_datetime(df_filtered['Check-in'], errors='coerce', format='%d/%m/%y %H:%M')
+df_filtered['Check-in'] = pd.to_datetime(df_filtered['Check-in'], format='%d/%m/%y %H:%M', errors='coerce')
+df_filtered['Check-out'] = pd.to_datetime(df_filtered['Check-out'], format='%d/%m/%y %H:%M', errors='coerce')
 df_filtered['Fecha de creacion'] = pd.to_datetime(df_filtered['Fecha de creacion'], format='%Y-%m-%d %H:%M:%S.%f', errors='coerce')
 
 def definir_temporada(fecha):
@@ -87,8 +88,8 @@ df_filtered['Franja Creación'] = df_filtered['Fecha de creacion'].apply(franja_
 
 
 # Calcular duración en días (para el modelo SVM)
-df_filtered['Check-out'] = pd.to_datetime(df_filtered['Check-in'], errors='coerce', format='%d/%m/%y %H:%M')
 df_filtered['Duracion'] = (df_filtered['Check-out'] - df_filtered['Check-in']).dt.days
+df = df_filtered.dropna(subset=['Check-in', 'Check-out'])
 
 
 df_filtered.to_csv('dataset/Reservas_transformado.csv', sep=';', index=False)
