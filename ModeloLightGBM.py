@@ -5,31 +5,14 @@ from sklearn.preprocessing import LabelEncoder
 from lightgbm import LGBMRegressor
 from sklearn.metrics import classification_report
 
-df = pd.read_csv('dataset/Reservas_filtrado.csv', sep=';')
+df = pd.read_csv('dataset/Reservas_transformado.csv', sep=';')
 
-df = df[df['Duracion'] > 0]
-
-# Calcular Precio por Día (target de la regresión)
-df['Precio_dia'] = df['Precio final'] / df['Duracion']
-
-# Clasificar en rangos
-def clasificar_precio_dia(precio):
-    if pd.isna(precio):
-        return 'Desconocido'
-    elif precio < 45000:
-        return 'Bajo'
-    elif precio <= 60000:
-        return 'Medio'
-    else:
-        return 'Alto'
-
-# Crear la variable target categórica
-df['Rango_precio'] = df['Precio_dia'].apply(clasificar_precio_dia)
+df = df[df['Estado'] == 'COMPLETADA']
 
 # Definir variables predictoras y target
 features = ['Temporada', 'Provincia', 'Modelo', 'Marca', 'Duracion']
 X = pd.get_dummies(df[features])
-y = df['Rango_precio']
+y = df['Rango de precio']
 
 joblib.dump(X.columns.tolist(), 'columnas_lightgbm.joblib')
 
