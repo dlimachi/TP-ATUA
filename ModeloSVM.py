@@ -32,6 +32,7 @@ svm = SVC(probability=True, random_state=42)
 grid_svm = GridSearchCV(svm, param_grid_svm, cv=5)
 grid_svm.fit(X_train, y_train)
 
+print('---------')
 # Mostrar resultados
 print('Mejores hiperparámetros para SVM:', grid_svm.best_params_)
 print('Accuracy en test:', grid_svm.score(X_test, y_test))
