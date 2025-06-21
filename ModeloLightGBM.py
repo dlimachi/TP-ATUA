@@ -19,7 +19,7 @@ joblib.dump(X.columns.tolist(), 'columnas_lightgbm.joblib')
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Crear modelo LightGBM
-lgbm = LGBMRegressor(random_state=42)
+lgbm = LGBMRegressor(random_state=42, verbose=-1)
 
 # Como el target es categórico, lo convertimos a números para LightGBM
 le = LabelEncoder()
@@ -43,4 +43,3 @@ print(f"Accuracy del modelo LightGBM: {accuracy:.3f}")
 
 # Reporte detallado
 print(classification_report(y_test, y_pred))
-print("Modelo y columnas guardados correctamente.")

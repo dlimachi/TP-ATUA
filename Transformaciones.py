@@ -6,9 +6,9 @@ df_filtered = pd.read_csv('dataset/Reservas_limpio.csv', sep=';')
 def clasificar_precio_dia(precio):
     if pd.isna(precio):
         return 'Desconocido'
-    elif precio < 45000:
+    elif precio < 53000:
         return 'Bajo'
-    elif precio <= 60000:
+    elif precio <= 63000:
         return 'Medio'
     else:
         return 'Alto'
