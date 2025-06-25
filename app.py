@@ -10,9 +10,15 @@ st.title("Predicción de rango de precio por día")
 
 # Inputs del usuario
 temporada = st.selectbox("Temporada", ['Alta', 'Baja'])
-provincia = st.selectbox("Provincia", ['Buenos Aires', 'Mendoza', 'Córdoba', 'Tucumán'])  # agregá todas
+provincia = st.selectbox("Provincia", ['Buenos Aires', 'CABA', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes',
+    'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones',
+    'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz',
+    'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'])
 modelo_auto = st.text_input("Modelo del auto", "Onix")
-marca = st.selectbox("Marca", ['Chevrolet', 'Toyota', 'Renault'])  # agregá todas
+marca = st.selectbox("Marca", [
+    'Peugeot', 'Volkswagen', 'Chevrolet', 'Fiat', 'Renault', 'Ford', 'Toyota', 'Nissan',
+    'Honda', 'Citroen', 'Hyundai', 'Kia', 'Mercedes', 'BMW', 'Audi', 'Jeep', 'Chery'
+])
 duracion = st.number_input("Duración del alquiler (días)", min_value=1, max_value=30, value=5)
 
 # Armar input como DataFrame
